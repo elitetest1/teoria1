@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen: Modelo Entidad-Relación (E-R)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@900&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif; 
+            line-height: 1.7;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #111;
+            color: white;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid #007bff;
+        }
+
+        header h1 {
+            font-family: 'Merriweather', serif;
+            font-weight: 900;
+            font-size: 2.8rem;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        header p {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007bff; 
+        }
+        
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 2.5rem auto;
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.07);
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 2rem;
+            color: #111;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #333;
+            font-weight: bold;
+            margin-top: 2rem;
+        }
+        
+        .tip {
+            background-color: #e9f2ff; 
+            border-left: 5px solid #007bff;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+
+        .tip strong {
+            color: #0056b3;
+        }
+
+        code {
+            background-color: #e0e0e0;
+            padding: 3px 7px;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+        }
+        
+        hr {
+            display: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #333;
+            color: #aaa;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            nav {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>DATABASE 101</h1>
+        <p>Una guía sencilla al Modelo Entidad-Relación</p>
+    </header>
+
+    <nav>
+        <a href="#intro">Introducción</a>
+        <a href="#componentes">Componentes</a>
+        <a href="#diagramas">Diagramas</a>
+        <a href="#reglas">Reglas</a>
+        <a href="#conversion">De Idea a Realidad</a>
+    </nav>
+
+    <main>
+        <section id="intro">
+            <h2>¿Qué es el Modelo Entidad-Relación? 🤔</h2>
+            <p>
+                Imagina que necesitas organizar una gran cantidad de información sobre una empresa, como un banco. Tienes clientes, cuentas, préstamos, empleados, etc. ¿Cómo te aseguras de que todo esté conectado correctamente antes de crear una base de datos real?
+            </p>
+            <div class="tip">
+                <p>
+                    <strong>En simple:</strong> El Modelo Entidad-Relación (E-R) es como un <strong>plano o un borrador</strong> para una base de datos. Te ayuda a visualizar la estructura de tus datos y cómo se conectan entre sí, usando objetos básicos (entidades) y las conexiones entre ellos (relaciones).
+                </p>
+            </div>
+            <p>
+                Fue creado para facilitar el diseño de bases de datos al permitir definir un esquema que representa la estructura lógica completa de la información.
+            </p>
+        </section>
+
+        <section id="componentes">
+            <h2>Los Bloques de Construcción: Componentes Básicos 🧱</h2>
+            <p>El modelo E-R utiliza tres conceptos básicos: Entidades, Atributos y Relaciones.</p>
+
+            <h3>1. Entidades</h3>
+            <p>Una <strong>entidad</strong> es simplemente una "cosa" u "objeto" del mundo real que podemos distinguir de otros. Por ejemplo, un cliente específico como "Juan Pérez" es una entidad. Un préstamo específico con el número "P-15" es otra entidad.</p>
+            <p>Un <strong>conjunto de entidades</strong> es un grupo de entidades del mismo tipo. Por ejemplo, el conjunto de todos los clientes del banco sería el conjunto de entidades <code>Cliente</code>.</p>
+
+            <h3>2. Atributos</h3>
+            <p>Los <strong>atributos</strong> son las propiedades o características que describen a una entidad. Para un <code>Cliente</code>, los atributos podrían ser <code>nombre-cliente</code>, <code>id-cliente</code> y <code>ciudad-cliente</code>.</p>
+            <ul>
+                <li><strong>Simples y Compuestos:</strong> Un atributo simple no se puede dividir (ej: <code>sueldo</code>). Uno compuesto sí (ej: <code>direccion</code> se puede dividir en <code>calle</code>, <code>ciudad</code>, <code>código-postal</code>).</li>
+                <li><strong>Monovalorados y Multivalorados:</strong> Un atributo monovalorado tiene un solo valor (ej: una persona tiene una <code>fecha-de-nacimiento</code>). Uno multivalorado puede tener varios (ej: una persona puede tener varios <code>números-de-teléfono</code>).</li>
+                <li><strong>Derivados:</strong> Es un atributo que se puede calcular a partir de otro. Por ejemplo, el atributo <code>edad</code> se puede derivar del atributo <code>fecha-de-nacimiento</code>. No se almacena directamente para ahorrar espacio y evitar inconsistencias.</li>
+            </ul>
+
+            <h3>3. Relaciones</h3>
+            <p>Una <strong>relación</strong> es la conexión o asociación que existe entre dos o más entidades. Por ejemplo, la acción de que un cliente "pide" un préstamo es una relación.</p>
+            <p>Un <strong>conjunto de relaciones</strong> es un grupo de relaciones del mismo tipo. Por ejemplo, la relación <code>Prestatario</code> asocia entidades del conjunto <code>Cliente</code> con entidades del conjunto <code>Préstamo</code>.</p>
+        </section>
+
+        <section id="diagramas">
+            <h2>Dibujando el Plano: Diagramas E-R 🗺️</h2>
+            <p>Para visualizar todo esto, usamos los Diagramas E-R. Son muy claros y usan símbolos simples:</p>
+             <ul>
+                <li><strong>Rectángulos:</strong> Representan conjuntos de entidades.</li>
+                <li><strong>Rombos:</strong> Representan conjuntos de relaciones.</li>
+                <li><strong>Óvalos/Elipses:</strong> Representan atributos.</li>
+                <li><strong>Líneas:</strong> Conectan los atributos a las entidades y las entidades a las relaciones.</li>
+            </ul>
+            <div class="tip">
+                <p><strong>Ejemplo Básico:</strong> Un rectángulo <code>Cliente</code> se conecta con una línea a un rombo <code>Prestatario</code>, y ese rombo se conecta con otra línea a un rectángulo <code>Préstamo</code>. Los óvalos con los atributos cuelgan de sus respectivos rectángulos.</p>
+                
+            </div>
+             <h3>Símbolos Especiales</h3>
+            <ul>
+                <li><strong>Atributo Clave:</strong> El atributo que identifica de forma única a una entidad (como un DNI) se subraya.</li>
+                <li><strong>Entidad Débil:</strong> Una entidad que no puede existir sin otra (ej: un <code>Pago</code> de un préstamo específico). Se dibuja con un <strong>rectángulo doble</strong>.</li>
+                <li><strong>Participación Total:</strong> Si una entidad *debe* participar en una relación (ej: todo préstamo *debe* tener un cliente), la línea que las une es <strong>doble</strong>.</li>
+            </ul>
+        </section>
+        
+        <section id="reglas">
+            <h2>Definiendo las Reglas: Restricciones 📏</h2>
+            <p>Los diagramas también nos permiten definir reglas sobre las relaciones.</p>
+            
+            <h3>Cardinalidad de la Relación</h3>
+            <p>Esto define <strong>cuántas</strong> entidades pueden relacionarse con cuántas otras. Se representa con flechas o números en las líneas del diagrama.</p>
+            <ul>
+                <li><strong>Uno a Uno (1:1):</strong> Una entidad de A se asocia como máximo con una de B, y viceversa.</li>
+                <li><strong>Uno a Varios (1:N):</strong> Una entidad de A se puede asociar con muchas de B, pero una de B solo con una de A.</li>
+                <li><strong>Varios a Varios (N:M):</strong> Una entidad de A se puede asociar con muchas de B, y viceversa.</li>
+            </ul>
+
+            <h3>Participación</h3>
+            <p>Esto define si la existencia de una entidad <strong>depende</strong> de que esté en una relación.</p>
+            <ul>
+                <li><strong>Total:</strong> Cada entidad del conjunto *debe* participar en al menos una relación. Por ejemplo, cada préstamo debe estar asociado a un cliente. Se indica con una línea doble.</li>
+                <li><strong>Parcial:</strong> Las entidades *pueden* participar, pero no es obligatorio. Por ejemplo, un cliente puede no tener ningún préstamo.</li>
+            </ul>
+        </section>
+
+        <section id="conversion">
+            <h2>De la Idea a la Realidad: De Diagrama a Tablas 🏗️</h2>
+            <p>Una vez que el plano (el diagrama E-R) está listo y aprobado, ¿cómo se convierte en una base de datos real? Se traduce a un conjunto de <strong>tablas</strong>. El proceso es bastante sistemático:</p>
+            <ol>
+                <li><strong>Cada conjunto de entidades se convierte en una tabla.</strong> Los atributos se convierten en las columnas de esa tabla. La tabla <code>Cliente</code> tendría columnas para <code>id-cliente</code>, <code>nombre-cliente</code>, etc.</li>
+                <li><strong>Cada conjunto de relaciones también se convierte en una tabla.</strong> Sus columnas son las claves primarias (los identificadores) de las entidades que conecta. La tabla <code>Prestatario</code> tendría columnas para <code>id-cliente</code> y <code>número-préstamo</code>.</li>
+                <li><strong>Los atributos multivalorados crean su propia tabla.</strong> Para guardar los múltiples números de teléfono de un empleado, se crea una tabla <code>Telefono_Empleado</code> con columnas para <code>id-empleado</code> y <code>numero-telefono</code>.</li>
+            </ol>
+            <div class="tip">
+                <p><strong>La meta final:</strong> Este proceso de conversión permite pasar de un modelo conceptual y visual (el diagrama E-R) a un modelo lógico que se puede implementar en cualquier sistema de base de datos relacional.</p>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer>
+        <p>Resumen generado a partir del documento "BD-U1-TEO2_Teoria_Completa_Modelo_E-R.pdf".</p>
+    </footer>
+
+</body>
+</html>
